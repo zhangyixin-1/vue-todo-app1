@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办清单 | Vue3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>📝 我的待办清单</h1>
+            
+            <div class="input-section">
+                <input 
+                    v-model="newTodo" 
+                    @keyup.enter="addTodo"
+                    type="text" 
+                    placeholder="输入新任务..."
+                    class="todo-input"
+                >
+                <button @click="addTodo" class="add-btn">添加</button>
+            </div>
 
+            <div class="stats">
+                <span>总计：{{ todos.length }}</span>
+                <span>已完成：{{ completedCount }}</span>
+                <span>未完成：{{ pendingCount }}</span>
+            </div>
+
+            <ul class="todo-list">
+                <li v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
+                    <input type="checkbox" v-model="todo.completed">
+                    <span class="todo-text">{{ todo.text }}</span>
+                    <button @click="deleteTodo(todo.id)" class="delete-btn">删除</button>
+                </li>
+            </ul>
+
+            <div v-if="todos.length === 0" class="empty-state">
+                ✨ 暂无任务，添加一个吧～
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
